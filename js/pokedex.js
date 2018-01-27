@@ -9,11 +9,19 @@ pokeApp.config(['$resourceProvider', function($resourceProvider) {
 
 pokeApp.factory('chosenPokemon', function($resource, $log, $rootScope){
     var pokemon = {};
-    var skills
+    var description = {};
+
     function retreive(url){
         var ApiData = $resource(url);
         ApiData.get().$promise.then(function(result){
             pokemon = result;
+            var ApiDescription = $resource(result.species.url);
+            ApiDescription.get().$promise.then(function(result){
+                var description = result.flavor_text_entries.find(function(m){
+                        return m.language.name === "en";
+                });
+                pokemon.description = description.flavor_text;
+            });
         });
     }
 
@@ -24,7 +32,7 @@ pokeApp.factory('chosenPokemon', function($resource, $log, $rootScope){
     return {retreive: retreive, getPokemon: getPokemon}
 });
 
-pokeApp.controller('pokeList', function($scope, $resource, $log, POKEAPI, chosenPokemon) {
+pokeApp.controller('pokeList', function($scope, $resource, POKEAPI, chosenPokemon) {
     var ApiData = $resource(POKEAPI + "pokemon/?limit=151");
     ApiData.get().$promise.then(function(results){
         $scope.pokemons = results.results;
@@ -34,13 +42,12 @@ pokeApp.controller('pokeList', function($scope, $resource, $log, POKEAPI, chosen
     };
 });
 
-pokeApp.controller('pokeChoice', function($scope, chosenPokemon, $log) {
+pokeApp.controller('pokeChoice', function($scope, chosenPokemon) {
     $scope.$watch(function(){
             return chosenPokemon.getPokemon()
         }
-        ,function (newVal, oldVal){
+        ,function (newVal){
             $scope.pokemon = newVal;
-            $log.warn(newVal);
         });
 });
 
