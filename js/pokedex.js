@@ -9,14 +9,11 @@ pokeApp.config(['$resourceProvider', function($resourceProvider) {
 
 pokeApp.factory('chosenPokemon', function($resource, $log, $rootScope){
     var pokemon = {};
-    var pokemonNumber = 0;
-
+    var skills
     function retreive(url){
         var ApiData = $resource(url);
         ApiData.get().$promise.then(function(result){
-            //$log.warn("hihi");
             pokemon = result;
-            //this.pokemonN
         });
     }
 
