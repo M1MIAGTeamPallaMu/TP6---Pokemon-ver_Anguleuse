@@ -16,14 +16,16 @@
 		<div ng-controller="pokeList">
             <input type="text" ng-model="name" class="idSearch" />
             <select ng-model="choice">
-                <option ng-repeat="pokemon in pokemons | filter:{name: name} | orderBy:pokemon">{{pokemon.name}}</option>
+                <option value="{{pokemon.url}}" ng-repeat="pokemon in pokemons | filter:{name: name} | orderBy:pokemon">{{pokemon.name}}</option>
             </select>
             <button ng-click="iChooseYou(choice)">IChooseYou!</button>
         </div>
 
 		<!-- Pokémon information -->
 		<div ng-controller="pokeChoice">
-
+            Id : {{pokemon.id}}<br/>
+            Name : {{pokemon.name}} <br/>
+            Image : <img src="{{pokemon.sprites.front_default}}"/>
         </div>
 
 	</div>
