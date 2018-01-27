@@ -7,29 +7,36 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
 </head>
-<body ng-app="pokedex">
+<div ng-app="pokedex">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header" ng-controller="pokeList">
+                <a class="navbar-brand" href="#">Pokésir version Anguleuse</a>
+                 <!-- Search -->
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Search for a Pokemon" type="text" ng-model="name" class="idSearch" />
+                        <select ng-change="iChooseYou(choice)" class="form-control" ng-model="choice">
+                            <option value="{{pokemon.url}}" ng-repeat="pokemon in pokemons | filter:{name: name} | orderBy:pokemon">{{pokemon.name}}</option>
+                        </select>
+                    </div>
+                 </form>
 
-	<div class="container">
-		<h1>Pokésir version Anguleuse</h1>
-
-		<!-- Search -->
-		<div ng-controller="pokeList">
-            <input type="text" ng-model="name" class="idSearch" />
-            <select ng-model="choice">
-                <option value="{{pokemon.url}}" ng-repeat="pokemon in pokemons | filter:{name: name} | orderBy:pokemon">{{pokemon.name}}</option>
-            </select>
-            <button ng-click="iChooseYou(choice)">IChooseYou!</button>
+            </div>
         </div>
-
-		<!-- Pokémon information -->
-		<div ng-controller="pokeChoice">
-            Id : {{pokemon.id}}<br/>
-            Name : {{pokemon.name}} <br/>
-            Image : <img src="{{pokemon.sprites.front_default}}"/>
+    </nav>
+    <!-- Pokémon information -->
+    <div  ng-controller="pokeChoice">
+        <div class="container">
+            <div class="row" ng-if="pokemon.id != undefined">
+                <div class="col-md-8"><h2> {{pokemon.id}} - {{pokemon.name | capitalize}}</h2></div>
+                <div class="col-md-4"><img width="200px" src="{{pokemon.sprites.front_default}}"/></div>
+            </div>
+            <div class="row" ng-if="pokemon.id != undefined">
+            </div>
         </div>
-
-	</div>
-
+    </div>
+</div>
     <!-- Dependencies -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

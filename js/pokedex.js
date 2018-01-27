@@ -42,7 +42,13 @@ pokeApp.controller('pokeChoice', function($scope, chosenPokemon, $log) {
             return chosenPokemon.getPokemon()
         }
         ,function (newVal, oldVal){
-            $log.warn(newVal);
             $scope.pokemon = newVal;
+            $log.warn(newVal);
         });
+});
+
+pokeApp.filter('capitalize', function() {
+    return function(input) {
+        return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
 });
