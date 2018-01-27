@@ -1,0 +1,50 @@
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header" ng-controller="pokeList">
+                <a class="navbar-brand" href="#">Pokésir version Anguleuse</a>
+                <!-- Search -->
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Search for a Pokemon" type="text" ng-model="name" class="idSearch" />
+                        <select ng-change="iChooseYou(choice)" class="form-control" ng-model="choice">
+                            <option value="{{pokemon.url}}" ng-repeat="pokemon in pokemons | filter:{name: name} | orderBy:pokemon">{{pokemon.name}}</option>
+                        </select>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+    <!-- Pokémon information -->
+    <div  ng-controller="pokeChoice">
+        <div ng-if="pokemon.id != undefined" class="container">
+            <div class="row" ng-if="pokemon.id != undefined">
+                <div class="col-md-9">
+                    <h2>{{pokemon.name | capitalize}}
+                    </h2>
+                    <h3>Moves</h3>
+                    <table class="table table-striped">
+                        <tr><th>Name</th></tr>
+                        <tr ng-repeat="move in pokemon.moves"><td>{{move.move.name}}</td></tr>
+                    </table>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{pokemon.name}}</div>
+                        <div class="panel-body">
+                            <img class="thumbnail" style="display: inline-block" src="{{pokemon.sprites.front_default}}"/>
+                            <table class="table table-striped">
+                                <tr><td>N°</td><td>{{pokemon.id}}</td></tr>
+                                <tr><td>Type(s)</td><td><span ng-repeat="type in pokemon.types">{{type.type.name}} </span></td></tr>
+                                <tr><td>Height</td><td>{{pokemon.height/10}}m</td></tr>
+                                <tr><td>Weight</td><td>{{pokemon.weight}}kg</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
