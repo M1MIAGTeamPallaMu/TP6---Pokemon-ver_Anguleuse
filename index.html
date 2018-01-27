@@ -47,8 +47,8 @@
                                 <table class="table table-striped">
                                     <tr><td>N°</td><td>{{pokemon.id}}</td></tr>
                                     <tr><td>Type(s)</td><td><span ng-repeat="type in pokemon.types">{{type.type.name}} </span></td></tr>
-                                    <tr><td>Height</td><td>{{pokemon.height}}</td></tr>
-                                    <tr><td>Weight</td><td>{{pokemon.weight}}</td></tr>
+                                    <tr><td>Height</td><td>{{pokemon.height/10}}m</td></tr>
+                                    <tr><td>Weight</td><td>{{pokemon.weight}}kg</td></tr>
                                 </table>
                             </div>
                         </div>
